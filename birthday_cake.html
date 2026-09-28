@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy 50th Birthday!</title>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom, #1a052e, #0c0214);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        /* Message Display Styles */
+        #message-container {
+            position: absolute;
+            top: 8%;
+            text-align: center;
+            width: 100%;
+            height: 100px;
+            z-index: 5;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .message {
+            font-size: calc(1.5rem + 1.5vw);
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            position: absolute;
+            width: 100%;
+            left: 0;
+        }
+
+        .message.show { opacity: 1; transform: translateY(0); }
+        .message.hide { opacity: 0; transform: translateY(-20px); }
+
+        #action-prompt {
+            font-size: calc(1rem + 0.8vw);
+            color: #f9d423;
+            text-shadow: 0 0 8px rgba(249, 212, 35, 0.6);
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        /* Cake Layout Structure */
+        #cake-container {
+            position: relative;
+            width: 280px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 6vh;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            z-index: 1;
+        }
+
+        .cake-layer {
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            box-shadow: inset 0 10px 20px rgba(255,255,255,0.2);
+        }
+
+        .layer-bottom { width: 250px; height: 80px; background: #643843; border-bottom: 8px solid #4a2630; }
+        .layer-middle { width: 190px; height: 70px; background: #85586F; border-bottom: 8px solid #643843; }
+        .layer-top { width: 130px; height: 60px; background: #E8A0BF; border-bottom: 8px solid #85586F; }
+
+        .cake-layer::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 12px;
+            background: #F9F5EB; border-radius: 10px; box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+        }
+
+        /* Candle Platform Settings */
+        #candle-deck { 
+            position: absolute; 
+            bottom: 210px; 
+            width: 120px; 
+            height: 10px; 
+            z-index: 20; 
+        }
+
+        /* Candle Properties */
+        .candle {
+            position: absolute; width: 4px; height: 22px;
+            background: linear-gradient(to right, #ff4e50, #f9d423);
+            border-radius: 2px; bottom: 100vh;
+            transition: bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 25;
+        }
+
+        .flame {
+            position: absolute; top: -11px; left: -3px; width: 10px; height: 14px;
+            background: #ff9d00; border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+            box-shadow: 0 0 10px #ff9d00, 0 0 20px #ff4e50;
+            animation: flicker 0.1s ease-in-out infinite alternate;
+            opacity: 0; transition: opacity 0.2s ease, transform 0.4s ease;
+        }
+
+        .candle.landed .flame { opacity: 1; }
+        .flame.blown-out { opacity: 0 !important; transform: scale(0) translateY(-10px); }
+
+        @keyframes flicker {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        /* Envelope UI Component */
+        #envelope-container {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 180px; height: 120px;
+            background: #ff4e50; border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex; justify-content: center; align-items: center;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+            z-index: 50; cursor: pointer;
+        }
+
+        #envelope-container::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 0; height: 0;
+            border-left: 90px solid transparent; border-right: 90px solid transparent;
+            border-top: 65px solid #fc3437; transform-origin: top;
+            transition: transform 0.4s ease; z-index: 21;
+        }
+
+        #envelope-container .seal {
+            width: 40px; height: 40px; background: #f9d423;
+            border-radius: 50%; z-index: 22; position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex; justify-content: center; align-items: center; color: #ff4e50; font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        #envelope-container.open::before { transform: rotateX(180deg); }
+
+        /* Letter Modal Overlay Structure */
+        #letter-modal {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%; max-width: 380px; max-height: 80vh;
+            background: #fff; border-radius: 12px; padding: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            overflow-y: auto; z-index: 60;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+            opacity: 0; color: #333; box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #letter-modal.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+
+        /* Picture Placeholder Box */
+        .picture-placeholder {
+            width: 100%; height: 160px;
+            border-radius: 8px; margin-bottom: 15px;
+            background: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: #6b7280; font-weight: bold; font-size: 0.9rem;
+        }
+        .picture-icon { font-size: 2.2rem; margin-bottom: 4px; }
+
+        .letter-title { font-size: 1.6rem; color: #d63384; margin: 0 0 10px 0; font-family: 'Georgia', serif; text-align: center; }
+        .letter-body { font-size: 0.95rem; line-height: 1.5; color: #444; font-family: 'Georgia', serif; text-align: left; }
+    </style>
+</head>
+<body>
+
+    <div id="message-container"></div>
+
+    <div id="cake-container">
+        <div id="candle-deck"></div>
+        <div class="cake-layer layer-top"></div>
+        <div class="cake-layer layer-middle"></div>
+        <div class="cake-layer layer-bottom"></div>
+    </div>
+
+    <!-- Envelope Interface Box -->
+    <div id="envelope-container">
+        <div class="seal">❤</div>
+    </div>
+
+    <!-- Inside Card Letter Popup Box -->
+    <div id="letter-modal">
+        <div class="picture-placeholder">
+            <div class="picture-icon">🖼️</div>
+            <div>[ Place Picture Here ]</div>
+        </div>
+        
+        <h2 class="letter-title">To Someone Special ✨</h2>
+        <div class="letter-body">
+            Dearest Birthday Star,<br><br>
+            Fifty beautiful years of life, laughter, and incredible memories! You have brought so much light into the world, just like the 50 candles lit on your cake today.<br><br>
+            May this landmark year open doors to endless joy, excellent health, and your grandest adventures yet. Here is to looking back with pride and looking forward with excitement!<br><br>
+            With all my love and warmest wishes,<br>
+            <strong>Happy 50th Birthday! 🎉</strong>
+        </div>
+    </div>
+
+    <script>
+        // EDIT THESE LINES BELOW TO CUSTOMIZE ALL 50 CANDLE MESSAGES:
+        const messages = [
+            "Candle 1: Welcome to the world! 👶",
+            "Candle 2: Learning to walk! 👣",
+            "Candle 3: Talkative and curious! 💬",
+            "Candle 4: Big smiles and adventures! 😊",
+            "Candle 5: Off to nursery school! 🎒",
+            "Candle 6: Making best friends! 🤝",
+            "Candle 7: Lucky year seven! 🍀",
+            "Candle 8: Growing up so fast! 🌱",
+            "Candle 9: Creative and bright! 🎨",
+            "Candle 10: Double digits! 🎂",
+            "Candle 11: Learning new things every day! 📚",
+            "Candle 12: Almost a teenager! ⭐",
+            "Candle 13: Official teen year! ⚡",
+            "Candle 14: Finding your unique style! 🎧",
+            "Candle 15: Chasing big dreams! 🚀",
+            "Candle 16: Sweet sixteen milestone! 🌸",
+            "Candle 17: Looking towards the future! 🗺️",
+            "Candle 18: Ready for the world! 🔑",
+            "Candle 19: The last teen year! 🎯",
+            "Candle 20: Hello twenties! 🌟",
+            "Candle 21: Full of energy and life! 🥂",
+            "Candle 22: Stepping out with confidence! 👠",
+            "Candle 23: Making unforgettable memories! 📸",
+            "Candle 24: Shining so beautifully! ✨",
+            "Candle 25: Quarter of a century! 💎",
+            "Candle 26: Building your own path! 🧱",
+            "Candle 27: Loving the journey! ❤️",
+            "Candle 28: Stronger and wiser! 💪",
+            "Candle 29: Getting ready for a shift! 🌊",
+            "Candle 30: Thriving and wise! 🥂",
+            "Candle 31: Writing beautiful chapters! ✍️",
+            "Candle 32: Settled and glowing! ☀️",
+            "Candle 33: A blessed master year! 🕊️",
+            "Candle 34: Embracing absolute joy! 🌈",
+            "Candle 35: Halfway to seventy! 🏅",
+            "Candle 36: Full of love and purpose! 🎯",
+            "Candle 37: Unstoppable momentum! 🏎️",
+            "Candle 38: Completely true to you! 🧩",
+            "Candle 39: Stepping towards a milestone! ⏳",
+            "Candle 40: Fabulous at forty! 🔥",
+            "Candle 41: Life is just beginning! 🍃",
+            "Candle 42: Filled with grace! 🎐",
+            "Candle 43: Enjoying the sweet things! 🍭",
+            "Candle 44: Solid as a rock! 💎",
+            "Candle 45: Pure elegance and wisdom! 👑",
+            "Candle 46: Making every second count! ⏱️",
+            "Candle 47: Beautiful and timeless! 🌌",
+            "Candle 48: Overflowing blessings! 🌾",
+            "Candle 49: The big milestone is next... 🤫",
+            "Candle 50: Half a century of perfection! 👑"
+        ];
+
+        const deck = document.getElementById('candle-deck');
+        const msgContainer = document.getElementById('message-container');
+        const cakeContainer = document.getElementById('cake-container');
+        const envelope = document.getElementById('envelope-container');
+        const letterModal = document.getElementById('letter-modal');
+        const totalCandles = 50;
+        let currentCandleIndex = 0;
+        let animationState = "dropping";
+
+        function showMessage(text) {
+            return new Promise((resolve) => {
+                const msgEl = document.createElement('div');
+                msgEl.className = 'message';
+                msgEl.innerText = text;
+                msgContainer.appendChild(msgEl);
+
+                setTimeout(() => msgEl.classList.add('show'), 50);
+                setTimeout(() => {
+                    msgEl.classList.remove('show');
+                    msgEl.classList.add('hide');
+                    setTimeout(() => {
+                        msgEl.remove();
+                        resolve();
+                    }, 400);
+                }, 1000);
+            });
+        }
+
+        async function processCandleCycle() {
+            if (currentCandleIndex >= totalCandles) {
+                animationState = "waitingToBlow";
+                msgContainer.innerHTML = '<div class="message show" id="action-prompt">💨 TAP SCREEN TO BLOW OUT CANDLES</div>';
+                return;
+            }
+
+            const candle = document.createElement('div');
+            candle.className = 'candle';
+
+            const flame = document.createElement('div');
+            flame.className = 'flame';
+            candle.appendChild(flame);
+
+            const xPosition = Math.random() * 106 + 7;
+            candle.style.left = `${xPosition}px`;
+            const yOffset = Math.random() * 10;
+            deck.appendChild(candle);
+
+            setTimeout(() => {
+                candle.style.bottom = `${yOffset}px`;
+                setTimeout(() => {
+                    candle.classList.add('landed');
+                }, 500);
+            }, 50);
+
+            await showMessage(messages[currentCandleIndex]);
+            currentCandleIndex++;
+            processCandleCycle();
+        }
+
+        function triggerBlowOut() {
+            if (animationState === "waitingToBlow") {
+                animationState = "blownOut";
+                msgContainer.innerHTML = "";
+                const flames = document.querySelectorAll('.flame');
+                flames.forEach((flame) => flame.classList.add('blown-out'));
+
+                setTimeout(() => {
+                    envelope.style.transform = "translate(-50%, -50%) scale(1)";
+                    msgContainer.innerHTML = '<div class="message show" id="action-prompt">✉ TAP ENVELOPE TO OPEN</div>';
+                }, 800);
+            }
+        }
+
+        function triggerOpenEnvelope(e) {
+            if (e) e.stopPropagation();
+            if (animationState !== "blownOut") return;
+
+            animationState = "letterOpen";
+            envelope.classList.add('open');
+            msgContainer.innerHTML = "";
+
+            setTimeout(() => {
+                envelope.style.transform = "translate(-50%, -120%) scale(0)";
+                envelope.style.opacity = "0";
+                cakeContainer.style.opacity = "0.1";
+
+                setTimeout(() => {
+                    letterModal.classList.add('show');
+                }, 200);
+            }, 600);
+        }
+
+        document.body.addEventListener('click', triggerBlowOut);
+        document.body.addEventListener('touchstart', triggerBlowOut, { passive: true });
+        envelope.addEventListener('click', triggerOpenEnvelope);
+        envelope.addEventListener('touchstart', triggerOpenEnvelope, { passive: true });
+        letterModal.addEventListener('click', (e) => e.stopPropagation());
+        letterModal.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+
+        setTimeout(processCandleCycle, 1000);
+    </script>
+</body>
+</html>
