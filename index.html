@@ -40,7 +40,7 @@
             text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.7s ease, transform 0.7s ease;
             position: absolute;
             width: 100%;
             left: 0;
@@ -104,7 +104,7 @@
             position: absolute; width: 4px; height: 22px;
             background: linear-gradient(to right, #ff4e50, #f9d423);
             border-radius: 2px; bottom: 100vh;
-            transition: bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: bottom 1.5s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 25;
         }
 
@@ -202,17 +202,14 @@
 
     <!-- Inside Card Letter Popup Box -->
     <div id="letter-modal">
-        <div class="picture-placeholder">
-            <div class="picture-icon">🖼️</div>
-            <div>[ Place Picture Here ]</div>
-        </div>
+    <!-- YOUR REPLACED PICTURE AREA -->
+        <img class="letter-img" src="birthday-pic.jpg.jpg" alt="Birthday Star" style="width:100%; height:auto; max-height:220px; border-radius:8px; object-fit:cover; margin-bottom:15px; display:block;">
         
-        <h2 class="letter-title">To Someone Special ✨</h2>
+        <h2 class="letter-title">To my gorgeous Ma ✨</h2>
         <div class="letter-body">
-            Dearest Birthday Star,<br><br>
-            Fifty beautiful years of life, laughter, and incredible memories! You have brought so much light into the world, just like the 50 candles lit on your cake today.<br><br>
-            May this landmark year open doors to endless joy, excellent health, and your grandest adventures yet. Here is to looking back with pride and looking forward with excitement!<br><br>
-            With all my love and warmest wishes,<br>
+            Hi Ma I hope you love it,<br><br>
+            Fifty beautiful years of life, laughter, and incredible memories! You have brought so much light into the world, just like the 50 candles lit on your cake today.There is not enough words to describe how much you mean to me.From the day I came into your life I have never been anywhere without may have just called me your handbag but honestly I love having you as my mum.You the most sweetest and easiest person to talk to, you not just my mum but my best friend,from convo's of school friends to work stress,you have always been there for me though everything and always there to pick me up no matter the circumstances. You are a work of art and you should stay as amazing as you are.I may not say this but just know I love you so much! My biggest role model.There is alot more I could say but I rather not make you tear on your special day...Last thing stay just the way you are and never change for anyone...Also I hope to be as beautiful as you when I turn 50...Dont worry you still look 25...Have a blessed day Ma.<br>
+            <br>Love Your Daughter: Taleah<br>
             <strong>Happy 50th Birthday! 🎉</strong>
         </div>
     </div>
@@ -220,56 +217,56 @@
     <script>
         // EDIT THESE LINES BELOW TO CUSTOMIZE ALL 50 CANDLE MESSAGES:
         const messages = [
-            "Candle 1: Welcome to the world! 👶",
-            "Candle 2: Learning to walk! 👣",
-            "Candle 3: Talkative and curious! 💬",
-            "Candle 4: Big smiles and adventures! 😊",
-            "Candle 5: Off to nursery school! 🎒",
-            "Candle 6: Making best friends! 🤝",
-            "Candle 7: Lucky year seven! 🍀",
-            "Candle 8: Growing up so fast! 🌱",
-            "Candle 9: Creative and bright! 🎨",
-            "Candle 10: Double digits! 🎂",
-            "Candle 11: Learning new things every day! 📚",
-            "Candle 12: Almost a teenager! ⭐",
-            "Candle 13: Official teen year! ⚡",
-            "Candle 14: Finding your unique style! 🎧",
-            "Candle 15: Chasing big dreams! 🚀",
-            "Candle 16: Sweet sixteen milestone! 🌸",
-            "Candle 17: Looking towards the future! 🗺️",
-            "Candle 18: Ready for the world! 🔑",
-            "Candle 19: The last teen year! 🎯",
-            "Candle 20: Hello twenties! 🌟",
-            "Candle 21: Full of energy and life! 🥂",
-            "Candle 22: Stepping out with confidence! 👠",
-            "Candle 23: Making unforgettable memories! 📸",
-            "Candle 24: Shining so beautifully! ✨",
-            "Candle 25: Quarter of a century! 💎",
-            "Candle 26: Building your own path! 🧱",
-            "Candle 27: Loving the journey! ❤️",
-            "Candle 28: Stronger and wiser! 💪",
-            "Candle 29: Getting ready for a shift! 🌊",
-            "Candle 30: Thriving and wise! 🥂",
-            "Candle 31: Writing beautiful chapters! ✍️",
-            "Candle 32: Settled and glowing! ☀️",
-            "Candle 33: A blessed master year! 🕊️",
-            "Candle 34: Embracing absolute joy! 🌈",
-            "Candle 35: Halfway to seventy! 🏅",
-            "Candle 36: Full of love and purpose! 🎯",
-            "Candle 37: Unstoppable momentum! 🏎️",
-            "Candle 38: Completely true to you! 🧩",
-            "Candle 39: Stepping towards a milestone! ⏳",
-            "Candle 40: Fabulous at forty! 🔥",
-            "Candle 41: Life is just beginning! 🍃",
-            "Candle 42: Filled with grace! 🎐",
-            "Candle 43: Enjoying the sweet things! 🍭",
-            "Candle 44: Solid as a rock! 💎",
-            "Candle 45: Pure elegance and wisdom! 👑",
-            "Candle 46: Making every second count! ⏱️",
-            "Candle 47: Beautiful and timeless! 🌌",
-            "Candle 48: Overflowing blessings! 🌾",
-            "Candle 49: The big milestone is next... 🤫",
-            "Candle 50: Half a century of perfection! 👑"
+            "Candle 1: Happy Birthday to the woman who brings harmony and warmth into every room! 🎶",
+            "Candle 2: May this year bring you the same peace you always give to others. 🌸",
+            "Candle 3: You are the quiet melody that makes our family life so beautiful. 🎵",
+            "Candle 4: To the woman who nurtured my soul before I even knew myself! 🌷",
+            "Candle 5: Your life is a beautiful tapestry of kindness, strength, and love. 🧵",
+            "Candle 6: May your day be as bright as the morning sun you bring into our lives! ☀️",
+            "Candle 7: You have a gift for turning ordinary moments into extraordinary memories! 🌟",
+            "Candle 8: The guardian angel who has watched over my entire life! 😇",
+            "Candle 9: Your unconditional love is the greatest compass I could ever ask for. ❤️",
+            "Candle 10: May your heart dance with joy today just as you make ours sing! 💃",
+            "Candle 11: You are the silver lining in every cloudy day! ☁️",
+            "Candle 12: Celebrating the woman whose gentle spirit makes the world a softer place! 🌼",
+            "Candle 13: The maker of the best comfort food and warmest hugs. 🍲🤗",
+            "Candle 14: Wishing a beautiful day to the absolute center of our family universe! 🌌",
+            "Candle 15: You are the cozy blanket on a cold day!🧣",
+            "Candle 16: The woman who can fix any bad day with a single cup of tea! 🍵",
+            "Candle 17: Thank you for making our family home feel like a sanctuary from the world. 🏡",
+            "Candle 18: To the person who knows exactly when I need a hug without me saying a word. 🤗",
+            "Candle 19: May your birthday be filled with deep rest, cozy moments, and your favorite treats! 🛋️🍰",
+            "Candle 20: You possess the rarest kind of magic—making everyone feel safe and loved. 🌟",
+            "Candle 21: To my favorite person to sit with in comfortable, happy silence. 🕊️",
+            "Candle 22: Your voice will always be my absolute favorite sound in the world. 🎶",
+            "Candle 23: The person who makes life feel incredibly safe and warm. 🏡",
+            "Candle 24: May today treat you like the absolute queen of comfort that you are. 👑",
+            "Candle 25: Let's celebrate the fact that you still look thirty-five",
+            "Candle 26: Cheers to the lady who definitely keeps this entire family from falling apart",
+            "Candle 27: My lifetime sponsor, personal stylist, and best friend!",
+            "Candle 28: You don't get older, Mum—you just accumulate vintage charm and sparkle",
+            "Candle 29: I'm so glad you're the one who passed down your great taste",
+            "Candle 30: To the woman who still knows how to out-dance everyone in the room!",
+            "Candle 31: May your day be completely free of any cooking, cleaning, or logic.",
+            "Candle 32: Thanks for always laughing at my jokes, even the terrible ones.",
+            "Candle 33: Cheers to another year of being the most fabulous woman in any room.",
+            "Candle 34: The undisputed manager of our family circus",
+            "Candle 35: To the only person allowed to give me unsolicited advice—have an amazing day!",
+            "Candle 36: Wishing a beautiful birthday to an absolutely irreplaceable soul.",
+            "Candle 37: May this birthday mark the beginning of your most adventurous years yet",
+            "Candle 38: To the ultimate architect of my happiness",
+            "Candle 39: May your day be overflowing with laughter, light, and pure joy.",
+            "Candle 40: My biggest inspiration and my most trusted confidante",
+            "Candle 41: Wishing you a year ahead full of brilliant health and beautiful surprises.",
+            "Candle 42: To the woman who gave me the courage to stand on my own two feet",
+            "Candle 43: May your heart be as light as a feather today",
+            "Candle 44: Celebrating you today and the beautiful energy you bring to the world",
+            "Candle 45: The person who holds my hand through every storm",
+            "Candle 46: May you feel wrapped in love today from near and far",
+            "Candle 47: Wishing an extraordinary birthday to a truly extraordinary woman.",
+            "Candle 48: To my first protector and my forever hero: have the best day",
+            "Candle 49: Cheers to your beautiful heart and the incredible legacy you are building",
+            "Candle 50: Happy 50th birthday to my gorgeous MUM!👑"
         ];
 
         const deck = document.getElementById('candle-deck');
@@ -295,8 +292,8 @@
                     setTimeout(() => {
                         msgEl.remove();
                         resolve();
-                    }, 400);
-                }, 1000);
+                    }, 700);
+                }, 2500);
             });
         }
 
@@ -323,7 +320,7 @@
                 candle.style.bottom = `${yOffset}px`;
                 setTimeout(() => {
                     candle.classList.add('landed');
-                }, 500);
+                }, 1500);
             }, 50);
 
             await showMessage(messages[currentCandleIndex]);
